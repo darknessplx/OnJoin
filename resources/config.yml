@@ -1,0 +1,4 @@
+# onjoim plugin adding joinmessagw and leave
+
+joinMessage: "§8[§a+§8] §r{PLAYER}"
+quitMessage: "§8[§c-§8] §r{PLAYER}"
