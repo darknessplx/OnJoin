@@ -2,5 +2,5 @@ name: OnJoin
 main: onjoin\OnJoin
 author: darknesspl
 version: 1.0.0
-API: 5.0.0
+api: 5.0.0
 description:  a simple plugin that causes that when a player leaves or quits, a message will appear saying that he joined just as he left 
