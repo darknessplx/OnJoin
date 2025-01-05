@@ -10,8 +10,8 @@ OnJoin is a simple plugin for PocketMine API 5 servers that sends custom message
 - Compatible with PocketMine API 5.
 
 ## Example Messages
-- **Join:** `Welcome, {PLAYER}! Enjoy your stay!`
-- **Leave:** `Goodbye, {PLAYER}! See you next time!`
+- **Join:** `[+] {PLAYER}`
+- **Leave:** `[-] {PLAYER}`
 
 ## Configuration
 All messages are customizable in the plugin's config file.
