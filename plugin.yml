@@ -1,5 +1,5 @@
 name: OnJoin
-main: onjoin\OnJoin
+main: darknesspl\OnJoin\OnJoin
 author: darknesspl
 version: 1.0.0
 api: 5.0.0
