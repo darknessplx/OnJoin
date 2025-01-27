@@ -19,7 +19,7 @@ Class OnJoinCommand extends Command{
         parent::__construct("onjoin", "/onjoin help for more information", null, ["oj"]);
     }
 
-    public function execute(CommandSender $sender, string $commandLabel, array $args): void {
+    public function execute(CommandSender $sender, string $commandLabel, array $args): string {
         if(!$sender instanceof Player) return $sender->sendMessage(TF::RED . "This command is only available in-game");
         if(!$this->testPermissionSilent($sender)) {
 			$sender->sendMessage(TF::RED . "You do not have permission to use this command");
