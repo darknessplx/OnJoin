@@ -16,5 +16,6 @@ OnJoin is a simple plugin for PocketMine API 5 servers that sends custom message
 
 ## Configuration
 All messages are customizable in the plugin's config file and in-game using /onjoin.
+New `type` parameter, there are 2 value `message` or `tip`
 
 
