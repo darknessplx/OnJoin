@@ -1,4 +1,10 @@
-# onjoim plugin adding joinmessagw and leave
+# OnJoin plugin adding Join/Quit Messages
 
+# Type: The type of message when a player join or quit the value should be "message" or "tip"
+# message: The Join/Quit Message appears in the chat.
+# tip: The Join/Quit Message appears above player's hotbar.
+type: message
+
+# This is the Join and Leaving message. use {PLAYER} for the player's name
 joinMessage: "§8[§a+§8] §r{PLAYER}"
 quitMessage: "§8[§c-§8] §r{PLAYER}"
