@@ -17,7 +17,6 @@ class OnJoin extends PluginBase implements \pocketmine\event\Listener
   public function onEnable(): void {
 
     $this->getServer()->getCommandMap()->register("OnJoin", new OnJoinCommand($this));
-    $this->getServer()->getLogger()->info("OnJoin plugin Enabled");
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
     $this->configdata = $this->getConfig()->getAll();
 
@@ -25,7 +24,6 @@ class OnJoin extends PluginBase implements \pocketmine\event\Listener
 
   public function onDisable(): void {
 
-    $this->getServer()->getLogger()->info("§cOnJoin plugin Disabled");
     $this->getConfig()->setAll($this->configdata);
     $this->getConfig()->save();
   
