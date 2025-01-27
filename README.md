@@ -9,6 +9,7 @@ OnJoin is a simple plugin for PocketMine API 5 servers that sends custom message
 - Fully configurable to match your style.
 - New Tip Join and leave messages(Appears above player's hotbar)
 - Compatible with PocketMine API 5.
+- Configuration can be done in-game using /onjoin. The permission is `onjoin.config`
 
 ## Example Messages
 - **Join:** `[+] {PLAYER}`
