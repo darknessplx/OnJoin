@@ -6,6 +6,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use darknesspl\OnJoin\OnJoin;
 use pocketmine\utils\TextFormat as TF;
+use pocketmine\player\Player;
 
 Class OnJoinCommand extends Command{
 
@@ -20,6 +21,7 @@ Class OnJoinCommand extends Command{
 
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
+        if(!$sender instanceof Player) return $sender->sendMessage(TF::RED . "This command is only available in-game");
         if(!$this->testPermissionSilent($sender)) {
 			$sender->sendMessage(TF::RED . "You do not have permission to use this command");
 			return;
