@@ -6,15 +6,17 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat as TF;
+use pocketmine\plugin\PluginOwned;
+use pocketmine\plugin\PluginOwnedTrait;
 
-class OnJoinCommand extends Command {
+class OnJoinCommand extends Command implements PluginOwned {
 
-    private OnJoin $plugin;
+    use PluginOwnedTrait;
 
     public function __construct(OnJoin $plugin) {
         parent::__construct("onjoin", "Manage OnJoin settings", null, ["oj"]);
         $this->setPermission("onjoin.config");
-        $this->plugin = $plugin;
+        $this->setPlugin($plugin);
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args): void {
@@ -72,9 +74,10 @@ class OnJoinCommand extends Command {
             return;
         }
         $joinMessage = implode(" ", $args);
-        $this->plugin->getConfig()->set("joinMessage", $joinMessage);
-        $this->plugin->getConfig()->save();
-        $this->plugin->configdata["joinMessage"] = $joinMessage;
+        $plugin = $this->getOwningPlugin();
+        $plugin->getConfig()->set("joinMessage", $joinMessage);
+        $plugin->getConfig()->save();
+        $plugin->configdata["joinMessage"] = $joinMessage;
 
         $preview = str_replace("{PLAYER}", $sender instanceof Player ? $sender->getName() : "Player", $joinMessage);
         $sender->sendMessage(TF::GREEN . "Join message has been updated to:\n" . TF::YELLOW . $preview);
@@ -87,9 +90,10 @@ class OnJoinCommand extends Command {
             return;
         }
         $quitMessage = implode(" ", $args);
-        $this->plugin->getConfig()->set("quitMessage", $quitMessage);
-        $this->plugin->getConfig()->save();
-        $this->plugin->configdata["quitMessage"] = $quitMessage;
+        $plugin = $this->getOwningPlugin();
+        $plugin->getConfig()->set("quitMessage", $quitMessage);
+        $plugin->getConfig()->save();
+        $plugin->configdata["quitMessage"] = $quitMessage;
 
         $preview = str_replace("{PLAYER}", $sender instanceof Player ? $sender->getName() : "Player", $quitMessage);
         $sender->sendMessage(TF::GREEN . "Quit message has been updated to:\n" . TF::YELLOW . $preview);
@@ -104,15 +108,17 @@ class OnJoinCommand extends Command {
             $sender->sendMessage(TF::RED . 'Invalid input. The value should be "message" or "tip".');
             return;
         }
-        $this->plugin->getConfig()->set("type", $args[1]);
-        $this->plugin->getConfig()->save();
-        $this->plugin->configdata["type"] = $args[1];
+        $plugin = $this->getOwningPlugin();
+        $plugin->getConfig()->set("type", $args[1]);
+        $plugin->getConfig()->save();
+        $plugin->configdata["type"] = $args[1];
         $sender->sendMessage(TF::GREEN . "Join/Quit message type has been changed to: " . TF::YELLOW . $args[1]);
     }
 
     private function reloadConfig(CommandSender $sender): void {
-        $this->plugin->getConfig()->reload();
-        $this->plugin->configdata = $this->plugin->getConfig()->getAll();
+        $plugin = $this->getOwningPlugin();
+        $plugin->getConfig()->reload();
+        $plugin->configdata = $plugin->getConfig()->getAll();
         $sender->sendMessage(TF::GREEN . "Configuration reloaded successfully.");
     }
 }
