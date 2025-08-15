@@ -125,4 +125,3 @@ class OnJoinCommand extends Command implements PluginOwned {
         $sender->sendMessage(TF::GREEN . "Configuration reloaded successfully.");
     }
 }
-
