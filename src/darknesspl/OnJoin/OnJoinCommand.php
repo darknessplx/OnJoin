@@ -6,6 +6,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat as TF;
+use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginOwned;
 use pocketmine\plugin\PluginOwnedTrait;
 
@@ -13,43 +14,33 @@ class OnJoinCommand extends Command implements PluginOwned {
 
     use PluginOwnedTrait;
 
-    public function __construct(OnJoin $plugin) {
+    public function __construct(Plugin $plugin) {
         parent::__construct("onjoin", "Manage OnJoin settings", null, ["oj"]);
         $this->setPermission("onjoin.config");
-        $this->setPlugin($plugin);
+        $this->owningPlugin = $plugin;
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args): void {
-        if (!$this->testPermissionSilent($sender)) {
-            return;
-        }
-
         if (!isset($args[0])) {
             $sender->sendMessage("§cType /onjoin help to see the list of commands.");
             return;
         }
-
         switch ($args[0]) {
             case "help":
                 $this->showHelp($sender);
                 break;
-
             case "joinmessage":
                 $this->setJoinMessage($sender, $args);
                 break;
-
             case "quitmessage":
                 $this->setQuitMessage($sender, $args);
                 break;
-
             case "settype":
                 $this->setMessageType($sender, $args);
                 break;
-
             case "reload":
                 $this->reloadConfig($sender);
                 break;
-
             default:
                 $sender->sendMessage(TF::RED . "Unknown subcommand. Type /onjoin help for more information.");
                 break;
@@ -73,12 +64,10 @@ class OnJoinCommand extends Command implements PluginOwned {
             return;
         }
         $joinMessage = implode(" ", $args);
-        /** @var OnJoin $plugin */
         $plugin = $this->getOwningPlugin();
         $plugin->getConfig()->set("joinMessage", $joinMessage);
         $plugin->getConfig()->save();
         $plugin->configdata["joinMessage"] = $joinMessage;
-
         $preview = str_replace("{PLAYER}", $sender instanceof Player ? $sender->getName() : "Player", $joinMessage);
         $sender->sendMessage(TF::GREEN . "Join message has been updated to:\n" . TF::YELLOW . $preview);
     }
@@ -90,12 +79,10 @@ class OnJoinCommand extends Command implements PluginOwned {
             return;
         }
         $quitMessage = implode(" ", $args);
-        /** @var OnJoin $plugin */
         $plugin = $this->getOwningPlugin();
         $plugin->getConfig()->set("quitMessage", $quitMessage);
         $plugin->getConfig()->save();
         $plugin->configdata["quitMessage"] = $quitMessage;
-
         $preview = str_replace("{PLAYER}", $sender instanceof Player ? $sender->getName() : "Player", $quitMessage);
         $sender->sendMessage(TF::GREEN . "Quit message has been updated to:\n" . TF::YELLOW . $preview);
     }
@@ -109,7 +96,6 @@ class OnJoinCommand extends Command implements PluginOwned {
             $sender->sendMessage(TF::RED . 'Invalid input. The value should be "message" or "tip".');
             return;
         }
-        /** @var OnJoin $plugin */
         $plugin = $this->getOwningPlugin();
         $plugin->getConfig()->set("type", $args[1]);
         $plugin->getConfig()->save();
@@ -118,7 +104,6 @@ class OnJoinCommand extends Command implements PluginOwned {
     }
 
     private function reloadConfig(CommandSender $sender): void {
-        /** @var OnJoin $plugin */
         $plugin = $this->getOwningPlugin();
         $plugin->getConfig()->reload();
         $plugin->configdata = $plugin->getConfig()->getAll();
