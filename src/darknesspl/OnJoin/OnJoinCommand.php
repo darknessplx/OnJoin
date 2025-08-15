@@ -16,7 +16,6 @@ class OnJoinCommand extends Command implements PluginOwned {
     public function __construct(OnJoin $plugin) {
         parent::__construct("onjoin", "Manage OnJoin settings", null, ["oj"]);
         $this->setPermission("onjoin.config");
-        /** @var OnJoin $plugin */
         $this->setPlugin($plugin);
     }
 
