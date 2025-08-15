@@ -21,7 +21,6 @@ class OnJoinCommand extends Command implements PluginOwned {
 
     public function execute(CommandSender $sender, string $commandLabel, array $args): void {
         if (!$this->testPermissionSilent($sender)) {
-            $sender->sendMessage(TF::RED . "You don't have permission to use this command.");
             return;
         }
 
@@ -126,3 +125,4 @@ class OnJoinCommand extends Command implements PluginOwned {
         $sender->sendMessage(TF::GREEN . "Configuration reloaded successfully.");
     }
 }
+
