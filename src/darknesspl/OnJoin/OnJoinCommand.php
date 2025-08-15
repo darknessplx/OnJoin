@@ -16,12 +16,12 @@ class OnJoinCommand extends Command implements PluginOwned {
     public function __construct(OnJoin $plugin) {
         parent::__construct("onjoin", "Manage OnJoin settings", null, ["oj"]);
         $this->setPermission("onjoin.config");
+        /** @var OnJoin $plugin */
         $this->setPlugin($plugin);
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args): void {
         if (!$this->testPermissionSilent($sender)) {
-            $sender->sendMessage(TF::RED . "You don't have permission to use this command.");
             return;
         }
 
@@ -74,6 +74,7 @@ class OnJoinCommand extends Command implements PluginOwned {
             return;
         }
         $joinMessage = implode(" ", $args);
+        /** @var OnJoin $plugin */
         $plugin = $this->getOwningPlugin();
         $plugin->getConfig()->set("joinMessage", $joinMessage);
         $plugin->getConfig()->save();
@@ -90,6 +91,7 @@ class OnJoinCommand extends Command implements PluginOwned {
             return;
         }
         $quitMessage = implode(" ", $args);
+        /** @var OnJoin $plugin */
         $plugin = $this->getOwningPlugin();
         $plugin->getConfig()->set("quitMessage", $quitMessage);
         $plugin->getConfig()->save();
@@ -108,6 +110,7 @@ class OnJoinCommand extends Command implements PluginOwned {
             $sender->sendMessage(TF::RED . 'Invalid input. The value should be "message" or "tip".');
             return;
         }
+        /** @var OnJoin $plugin */
         $plugin = $this->getOwningPlugin();
         $plugin->getConfig()->set("type", $args[1]);
         $plugin->getConfig()->save();
@@ -116,6 +119,7 @@ class OnJoinCommand extends Command implements PluginOwned {
     }
 
     private function reloadConfig(CommandSender $sender): void {
+        /** @var OnJoin $plugin */
         $plugin = $this->getOwningPlugin();
         $plugin->getConfig()->reload();
         $plugin->configdata = $plugin->getConfig()->getAll();
