@@ -6,7 +6,6 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat as TF;
-use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginOwned;
 use pocketmine\plugin\PluginOwnedTrait;
 
@@ -14,7 +13,7 @@ class OnJoinCommand extends Command implements PluginOwned {
 
     use PluginOwnedTrait;
 
-    public function __construct(Plugin $plugin) {
+    public function __construct(OnJoin $plugin) {
         parent::__construct("onjoin", "Manage OnJoin settings", null, ["oj"]);
         $this->setPermission("onjoin.config");
         $this->owningPlugin = $plugin;
