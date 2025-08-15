@@ -1,4 +1,4 @@
-## [v1.1.0] - 2025-01-27
+## [v1.1.0] - 2025-08-15
 
 ### Added
 - New command system with `/onjoin` command
@@ -19,7 +19,7 @@
 - Added type hints for better code reliability
 - Improved configuration handling and validation
 
-## [v1.0.0] - 2025-01-07
+## [v1.0.0] - 2025-01-05
 
 ### Added
 - Initial release of OnJoin plugin
